@@ -38,7 +38,10 @@ fun AppNavigation() {
 
     NavHost(navController = navController, startDestination = "home") {
         composable("home") {
-            PiaScreen2(navController)
+
+            PiaScreen2(onReadMoreClick = {
+                navController.navigate("details")
+            })
         }
         composable("details") {
             DetailsScreen()
@@ -47,7 +50,7 @@ fun AppNavigation() {
 }
 
 @Composable
-fun PiaScreen2(navController: NavController) {
+fun PiaScreen2(onReadMoreClick: () -> Unit) {
     Column(modifier = Modifier
         .fillMaxSize()
         .background(Color.Cyan)
@@ -98,7 +101,7 @@ fun PiaScreen2(navController: NavController) {
                 .height(80.dp)
                 .background(Color.Blue)
                 .clickable {
-                    navController.navigate("details")
+                    onReadMoreClick()
                 },
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
@@ -137,5 +140,5 @@ fun NumberBox(text: String) {
 @Preview(showBackground = true)
 @Composable
 fun PiaScreen2Preview() {
-    PiaScreen2(rememberNavController())
+    PiaScreen2(onReadMoreClick = {})
 }
